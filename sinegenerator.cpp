@@ -1,9 +1,5 @@
-#define _USE_MATH_DEFINES
 #include <cmath>
 #include "matplotlibcpp.h"
-#include <stdlib.h>
-#include <time.h>
-#include <iostream>
 
 namespace plt = matplotlibcpp;
 
@@ -27,13 +23,6 @@ Samples generateSine(double A, double phi, double fSignal, double fSampling, dou
         s.y.at(i) = A * sin(s.x.at(i) * fSignal * 2 * M_PI + phi);
     }
 	return s;
-}
-
-void addNoise(Samples &s, double noiseA)
-{
-    std::srand(time(NULL));
-    for(auto &i:s.y)
-        i += noiseA * (0.5 - (double)std::rand() / RAND_MAX);
 }
 
 int main() 
