@@ -38,10 +38,10 @@ void addNoise(Samples &s, double noiseA)
 
 std::vector<double> xcorr(std::vector<double> &a, std::vector<double> &b)
 {
-    std::vector<double> xcorr(a.size() + b.size(),0);
+    std::vector<double> xcorr(a.size() + b.size() - 1,0);
     for(int i = 0; i < xcorr.size(); ++i)
     {
-        int n = i - b.size();
+        int n = i - b.size() + 1;
         std::cout<<"delay="<<n<<std::endl;
         for(int m = 0; m < a.size(); ++m)
         {
@@ -57,8 +57,14 @@ std::vector<double> xcorr(std::vector<double> &a, std::vector<double> &b)
 
 int main() 
 {
-    Samples s1 = generateSine(2,0,50,500,2);
-    Samples s2 = generateSine(2,M_PI/2,50,500,2);
+    std::vector<double> a = {0.1,0.2,-0.1,4.1,-2,1.5,-0.1};
+    std::vector<double> b = {0.1,4,-2.2,1.6,0.1,0.1,0.2};
+    std::vector<double> xc = xcorr(a,b);
+    for(auto i:xc)
+        std::cout<<std::endl<<i;
+    plt::plot(xc);
+//    Samples s1 = generateSine(2,0,50,500,2);
+//    Samples s2 = generateSine(2,M_PI/2,50,500,2);
 //    TDSamples c = generateSine(1,100,500,1);
 //   	TDSamples c = generateSine(x,y,1,52,5000,10);
 //   	TDSamples c50 = generateSine(x,y,1,50,5000,10);
@@ -66,8 +72,8 @@ int main()
 //   	std::vector<double> xc = xcorr(s.y,c.y);
 //   	std::vector<double> xc50 = xcorr(s.y,c50.y);
    	   	
-   	plt::plot(s1.x, s1.y, "r");
-   	plt::plot(s2.x, s2.y, "g");
+//   	plt::plot(s1.x, s1.y, "r");
+//   	plt::plot(s2.x, s2.y, "g");
 //   	plt::plot(xc, "b");
 //   	plt::plot(xc50, "g.");
 	plt::show();
