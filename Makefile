@@ -1,9 +1,10 @@
-exercise: sinegenerator xcorr
+exercise:  sinegenerator xcorr
 
-xcorr: xcorr.cpp matplotlibcpp.h
-	g++ xcorr.cpp -I/usr/include/python2.7 -lpython2.7 -o xcorr
+pre:
+	test bin || mkdir bin
 
-sinegenerator: sinegenerator.cpp matplotlibcpp.h
-	g++ sinegenerator.cpp -I/usr/include/python2.7 -lpython2.7 -o sinegenerator
+xcorr: pre src/xcorr.cpp resources/matplotlibcpp.h
+	g++ -g src/xcorr.cpp -I/usr/include/python2.7 -Iresources -lpython2.7 -o bin/xcorr
 
-
+sinegenerator: pre src/sinegenerator.cpp resources/matplotlibcpp.h
+	g++ -g src/sinegenerator.cpp -I/usr/include/python2.7 -Iresources -lpython2.7 -o bin/sinegenerator
