@@ -1,16 +1,9 @@
 #include <cmath>
 #include "matplotlibcpp.h"
 
-namespace plt = matplotlibcpp;
+#include "Samples.hpp"
 
-struct Samples
-{
-    Samples(unsigned int size) : x(size), y(size)
-    {
-    }
-    std::vector<double> x;
-    std::vector<double> y;
-};
+namespace plt = matplotlibcpp;
 
 Samples generateSine(double A, double phi, double fSignal, double fSampling, double nT)
 {
