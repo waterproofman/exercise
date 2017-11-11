@@ -1,4 +1,7 @@
-all:  sinegenerator xcorr
+SDSP_SRC_FILES := $(wildcard src/*.cpp)
+SDSP_OBJ_FILES := $(patsubst src/%.cpp,bin/%.o,$(SDSP_SRC_FILES))
+
+all: sinegeneration xcorr
 
 pre:
 	 [ -s ./bin ] || mkdir bin;
@@ -6,8 +9,17 @@ pre:
 clean:
 	rm bin -rf
 
-xcorr: pre src/xcorr.cpp resources/matplotlibcpp.h
-	g++ -g src/xcorr.cpp -I/usr/include/python2.7 -Iresources -lpython2.7 -o bin/xcorr
+libsdsp.a: $(SDSP_OBJ_FILES)
+	ar rcs bin/$@ $^
 
-sinegenerator: pre src/sinegenerator.cpp resources/matplotlibcpp.h
-	g++ -g src/sinegenerator.cpp -I/usr/include/python2.7 -Iresources -lpython2.7 -o bin/sinegenerator
+#libsdsp: $(SDSP_OBJ_FILES)
+#	g++ -o $@ $^
+
+bin/%.o: src/%.cpp
+	g++ $(CPPFLAGS) $(CXXFLAGS) -Iinclude -c -o $@ $<
+
+xcorr: pre src/xcorr.cpp resources/matplotlibcpp.h
+	g++ -g examples/xcorrExample.cpp bin/libsdsp.a -I/usr/include/python2.7 -Iresources -Iinclude -lpython2.7 -o bin/xcorrExample
+
+sinegeneration: pre examples/sineGeneration.cpp libsdsp.a
+	g++ -g examples/sineGeneration.cpp bin/libsdsp.a -I/usr/include/python2.7 -Iinclude -Iresources -lpython2.7 -o bin/sineGeneration
