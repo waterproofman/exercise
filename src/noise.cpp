@@ -1,18 +1,15 @@
 #include <cmath>
 #include <stdlib.h>
 #include <time.h>
+#include <random>
 
 #include "Samples.hpp"
 
-static bool callMeOnce()
-{
-    std::srand(time(NULL));
-    return true;
-}
-
 void addNoise(Samples &s, double noiseA)
 {
-	static bool alreadyRandomized = callMeOnce();
+	static std::random_device r;
+	std::default_random_engine e1(r());
+	std::uniform_real_distribution<double> uniform_dist(-noiseA/2, noiseA/2);
     for(auto &i:s.y)
-        i += noiseA * (0.5 - (double)std::rand() / RAND_MAX);
+        i += uniform_dist(e1);
 }
