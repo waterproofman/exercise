@@ -1,10 +1,14 @@
+SDSP_BIN_DIR := ./bin
+SDSP_OBJ_DIR := $(SDSP_BIN_DIR)/obj
 SDSP_SRC_FILES := $(wildcard src/*.cpp)
-SDSP_OBJ_FILES := $(patsubst src/%.cpp,bin/%.o,$(SDSP_SRC_FILES))
+SDSP_OBJ_FILES := $(patsubst src/%.cpp,$(SDSP_OBJ_DIR)/%.o,$(SDSP_SRC_FILES))
+
 
 all: sinegeneration xcorr
 
 pre:
-	 [ -s ./bin ] || mkdir bin;
+	 [ -s $(SDSP_BIN_DIR) ] || mkdir $(SDSP_BIN_DIR);
+	 [ -s $(SDSP_OBJ_DIR) ] || mkdir $(SDSP_OBJ_DIR);
 
 clean:
 	rm bin -rf
@@ -15,7 +19,7 @@ libsdsp.a: $(SDSP_OBJ_FILES)
 #libsdsp: $(SDSP_OBJ_FILES)
 #	g++ -o $@ $^
 
-bin/%.o: src/%.cpp
+$(SDSP_OBJ_DIR)/%.o: src/%.cpp
 	g++ $(CPPFLAGS) $(CXXFLAGS) -Iinclude -c -o $@ $<
 
 xcorr: pre src/xcorr.cpp resources/matplotlibcpp.h

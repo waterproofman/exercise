@@ -8,4 +8,4 @@ struct Samples
     std::vector<double> x;
     std::vector<double> y;
 };
-namespace plt = matplotlibcpp;
+
