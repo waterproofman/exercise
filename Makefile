@@ -22,7 +22,7 @@ libsdsp.a: $(SDSP_OBJ_FILES)
 $(SDSP_OBJ_DIR)/%.o: src/%.cpp
 	g++ $(CPPFLAGS) $(CXXFLAGS) -Iinclude -c -o $@ $<
 
-xcorr: pre src/xcorr.cpp resources/matplotlibcpp.h
+xcorr: pre src/xcorr.cpp resources/matplotlibcpp.h libsdsp.a
 	g++ -g examples/xcorrExample.cpp bin/libsdsp.a -I/usr/include/python2.7 -Iresources -Iinclude -lpython2.7 -o bin/xcorrExample
 
 sinegeneration: pre examples/sineGeneration.cpp libsdsp.a
