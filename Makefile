@@ -31,4 +31,4 @@ sinegeneration: pre examples/sineGeneration.cpp $(SDSP_BIN_DIR)/libsdsp.a
 	g++ -g examples/sineGeneration.cpp bin/libsdsp.a -I/usr/include/python2.7 -Iinclude -Iresources -lpython2.7 -o bin/sineGeneration
 
 ut: pre tests/xcorrTest.cpp $(SDSP_BIN_DIR)/libsdsp.a
-	g++ -g tests/xcorrTest.cpp bin/libsdsp.a -Iinclude -o bin/ut
+	g++ -g tests/xcorrTest.cpp tests/gTestMain.cpp bin/libsdsp.a /usr/lib/libgtest.a -Iinclude -lpthread -o bin/ut

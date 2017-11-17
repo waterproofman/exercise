@@ -1,7 +1,8 @@
-#include <iostream>
+#include "gtest/gtest.h"
 
-int main(void)
+TEST(testMath, myCubeTest)
 {
-	std::cout<<"It works"<<std::endl;
+	volatile int i = 1000;
+    EXPECT_EQ(1000, i);
 }
 
