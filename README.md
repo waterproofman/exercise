@@ -1,2 +1,1 @@
-# exercise
-c++ exercises
+Simple DSP library for C++.
