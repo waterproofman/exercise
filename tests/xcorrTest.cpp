@@ -2,6 +2,6 @@
 
 int main(void)
 {
-	std::cout<<"It works";
+	std::cout<<"It works"<<std::endl;
 }
 
