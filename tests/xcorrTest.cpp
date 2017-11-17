@@ -1,1 +1,7 @@
-//dummy test
+#include <iostream>
+
+int main(void)
+{
+	std::cout<<"It works";
+}
+
